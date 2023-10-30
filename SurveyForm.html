@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Survey Form</title>
+  <style>
+   body {
+    
+    background-color: #0594c4;
+            font-family: Verdana;
+            text-align: center;
+}
+
+#surveyForm{
+  background-color: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  padding: 20px;
+  background: #fff;
+  z-index: 9999;
+}
+
+.popup .close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.popupContent {
+  margin-bottom: 10px;
+}
+
+  </style>
+  <script>
+    function validateForm() {
+  var firstName = document.getElementById('firstName').value;
+  var lastName = document.getElementById('lastName').value;
+  var dob = document.getElementById('dob').value;
+  var country = document.getElementById('country').value;
+  var profession = document.getElementById('profession').value;
+  var email = document.getElementById('email').value;
+  var mobileNumber = document.getElementById('mobileNumber').value;
+
+  if (!firstName || !lastName || !dob || !country || !profession || !email || !mobileNumber) {
+    alert('Please fill in all required fields');
+    return false;
+  }
+
+
+  // Additional validation can be added for email format, mobile number format, etc.
+  // You can customize it as per your requirements.
+
+  openPopup();
+  return false;
+}
+
+function openPopup() {
+  var firstName = document.getElementById('firstName').value;
+  var lastName = document.getElementById('lastName').value;
+  var dob = document.getElementById('dob').value;
+  var country = document.getElementById('country').value;
+  var gender = document.querySelector('input[name="gender"]:checked');
+  var profession = document.getElementById('profession').value;
+  var email = document.getElementById('email').value;
+  var mobileNumber = document.getElementById('mobileNumber').value;
+
+  var popupContent = document.getElementById('popupContent');
+  popupContent.innerHTML = `
+    <p>First Name: ${firstName}</p>
+    <p>Last Name: ${lastName}</p>
+    <p>Date of Birth: ${dob}</p>
+    <p>Country: ${country}</p>
+    <p>Gender: ${gender ? gender.value : 'Not specified'}</p>
+    <p>Profession: ${profession}</p>
+    <p>Email: ${email}</p>
+    <p>Mobile Number: ${mobileNumber}</p>
+  `;
+
+  var popup = document.getElementById('popup');
+  popup.style.display = 'block';
+}
+
+function closePopup() {
+  var popup = document.getElementById('popup');
+  popup.style.display = 'none';
+
+  resetForm();
+}
+
+function resetForm() {
+  document.getElementById('surveyForm').reset();
+}
+
+  </script>
+</head>
+
+<body>
+  <h1>Survey Form</h1>
+  <form id="surveyForm" onsubmit="return validateForm()">
+   
+    <div>
+      
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" placeholder="Enter your first name" required>
+    </div>
+
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" placeholder="Enter your last name" required>
+    </div>
+
+    <div>
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" required>
+    </div>
+
+    <div>
+      <label for="country">Country:</label>
+      <select id="country" required>
+        <option value="">Select Country</option>
+        <option value="INDIA">INDIA</option>
+        <option value="USA">USA</option>
+        <option value="Canada">Canada</option>
+        <option value="UK">UK</option>
+        <!-- Add more countries as needed -->
+      </select>
+    </div>
+
+    <div>
+      <label>Gender:</label>
+      <input type="checkbox" id="genderMale" name="gender" value="male"> Male
+      <input type="checkbox" id="genderFemale" name="gender" value="female"> Female
+    </div>
+
+    <div>
+      <label for="profession">Profession:</label>
+      <input type="text" id="profession" placeholder="Enter your profession" required>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email" name="email" pattern ="[a-z 0-9+_].+@gmail.com" required>
+    </div>
+
+    <div>
+      <label for="mobileNumber">Mobile Number:</label>
+      <input type="tel" id="mobileNumber" placeholder="Enter your  phone no." name="mobileNumber" pattern="[0-9]{10}" required>
+    </div>
+
+    <div>
+      <button type="submit">Submit</button>
+      <button type="button" onclick="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <div id="popup" class="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <div id="popupContent"></div>
+  </div>
+
+</body>
+
+</html>
